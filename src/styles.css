@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.container{
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.container-fluid{
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+/* validation error messages style */
+.errorStyle{
+    color: #f53d3d;
+    text-align: center;
+    font-size: 12px;
+    text-align: left;
+    padding-top: 0px;
+    margin-top: -13px;
+    margin-bottom: 10px;
+}
+
+.navStyle{
+    height: 70px;
+    margin-top: 65px;
+    background: #cccccc;
+    border-bottom: 1px solid #999999;
+    text-align: right;
+    padding: 20px;
+  }
+  
+  .progressStyle{
+    margin-top: 70px;
+  }
+

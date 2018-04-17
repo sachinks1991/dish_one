@@ -1,0 +1,38 @@
+<div class="navStyle align-middle">
+    <span class="mx-auto text-center"><h3>Make Payment</h3></span>
+  </div>      
+  
+  <div class="container">   
+    <form (ngSubmit)="onSubmit()" [formGroup]="paymentForm">
+      <!-- amount to be paid-->
+      <div class="form-group">
+        <label for="description">Amount To be Paid</label>
+        <label 
+          id="description">
+            RS. 150
+        </label>
+      </div>
+  
+      <!-- amount -->
+      <div class="form-group">
+        <label for="payment">Amount</label>
+        <input
+          type="number"  
+          class="form-control" 
+          id="payment"
+          formControlName="payment">
+      </div>
+      <div *ngIf="paymentForm.controls.payment.invalid && (paymentForm.controls.payment.dirty || paymentForm.controls.payment.touched || paymentForm.controls.payment.untouched)"
+          class="errorStyle">
+        <div *ngIf="paymentForm.controls.payment.errors.required">
+            Amount Required
+        </div>
+
+        <div *ngIf="paymentForm.controls.payment.dirty && (paymentForm.controls.payment.errors.max || paymentForm.controls.payment.errors.amount)">
+            Please enter valid amount
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-dark btn-block" [disabled]="!paymentForm.valid"> Make Payment </button> 
+    </form>
+  </div>

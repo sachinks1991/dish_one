@@ -1,0 +1,7 @@
+.my-pagination /deep/ .ngx-pagination .current {
+  background: #32383e;
+}
+
+.container-fluid{
+  margin-top: 12px;
+}

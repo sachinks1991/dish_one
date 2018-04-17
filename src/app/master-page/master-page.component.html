@@ -1,0 +1,37 @@
+<div *ngIf="enabled">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" routerLink="/dashboard" routerLinkActive="active"><h3>DISH ONE</h3></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/customerregister" routerLinkActive="active">Customer Registration</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/customerdetails" routerLinkActive="active">Customer Details</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/agentregister" routerLinkActive="active">Agent Registration</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/agentdetails" routerLinkActive="active">Agent Details</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/area" routerLinkActive="active">Area</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <button class="btn btn-outline-success my-2 my-sm-0" (click)="logout()">Logout</button>
+      </form>
+    </div>
+  </nav>
+
+  <nav class="navbar fixed-bottom navbar-dark bg-dark">
+    <h6 class="footerTextStyle"> @ Copyright Dish One 2018 powered by Eshanya Info Solution. </h6>
+  </nav>
+</div>
+
+<router-outlet></router-outlet>

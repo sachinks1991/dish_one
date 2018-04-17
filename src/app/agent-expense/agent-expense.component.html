@@ -1,0 +1,45 @@
+<div class="navStyle align-middle">
+  <span class="mx-auto text-center"><h3>Add Agent Expenses</h3></span>
+</div>      
+
+<div class="container">   
+  <form (ngSubmit)="onSubmit()" [formGroup]="expenseForm">
+    <!-- description-->
+    <div class="form-group">
+      <label for="description">Expense Description</label>
+      <textarea 
+        class="form-control" 
+        id="description"
+        formControlName="description">
+      </textarea>
+    </div>
+    <div *ngIf="expenseForm.controls.description.invalid && (expenseForm.controls.description.dirty || expenseForm.controls.description.touched || expenseForm.controls.description.untouched)"
+        class="errorStyle">
+      <div *ngIf="expenseForm.controls.description.errors.required">
+          Expense Description is required
+      </div>
+    </div>
+
+    <!-- amount -->
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input
+        type="number"  
+        class="form-control" 
+        id="amount"
+        formControlName="amount">
+    </div>
+    <div *ngIf="expenseForm.controls.amount.invalid && (expenseForm.controls.amount.dirty || expenseForm.controls.amount.touched || expenseForm.controls.amount.untouched)"
+        class="errorStyle">
+      <div *ngIf="expenseForm.controls.amount.errors.required">
+        Amount Required
+      </div>
+
+      <div *ngIf="expenseForm.controls.amount.dirty && (expenseForm.controls.amount.errors.max || expenseForm.controls.amount.errors.amount)">
+        Please enter valid Amount
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-dark btn-block" [disabled]="!expenseForm.valid"> Add </button> 
+  </form>
+</div>

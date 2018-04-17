@@ -1,0 +1,88 @@
+<div *ngIf="isLoadComplete" class="navStyle align-middle ">
+  <span class="float-right"> 
+    <form class="form-inline">
+      <input class="form-control" type="search" (keyup)="onInput($event.target.value)" placeholder="Search Agent" aria-label="Search">
+    </form>
+  </span>
+
+  <span class="mx-auto text-center"><h3> Agent Details </h3></span>
+</div>
+<mat-progress-bar class="progressStyle" *ngIf="!isLoadComplete" mode="indeterminate"> </mat-progress-bar>
+
+<div class="container-fluid table-responsive">
+
+<table *ngIf="isLoadComplete" class="table table-striped table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Serial Number</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Email</th>       
+      <th scope="col">Address</th>
+      <th scope="col">PinCode</th>
+      <th scope="col">Activated</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+      <th scope="col">Add Expense</th>
+      <th scope="col">Expense Details</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let agent of agentDetails| paginate: {itemsPerPage: itemsPerPage, currentPage: p }; let i = index ">
+    <tr>
+      <!-- <th scope="row">{{ (config.currentPage - 1) * config.itemsPerPage + i + 1 }}</th> -->
+      <th scope="row">{{ (p - 1) * itemsPerPage + i + 1  }}</th>
+      <td>{{agent.firstName}}</td>
+      <td>{{agent.lastName}}</td>
+      <td>{{agent.phoneNumber}}</td>
+      <td>{{agent.email}}</td>
+      <td>{{agent.address}}</td>
+      <td>{{agent.pincode}}</td>
+      <td *ngIf="agent.isActivated == 1">Activated</td><td *ngIf="agent.isActivated == 0">De Activated</td>
+      <td><button type="button" class="btn btn-outline-light" (click)="navigateToEdit(agent)">Edit</button></td>
+      <td><button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#exampleModal" (click)="readyForDelete(agent.id)">Delete</button></td>
+      <td><button type="button" class="btn btn-outline-light" routerLink="/agentexpense/{{agent.id}}">Add Expense</button></td>
+      <td><button type="button" class="btn btn-outline-light" routerLink="/agentexpensedetails/{{agent.id}}">Expense Details</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls> -->
+
+<!-- <div class="p-3 mb-2 bg-dark text-light mx-auto" style="display: table;"> -->
+  <pagination-controls
+    *ngIf="isLoadComplete"
+    maxSize="11"
+    directionLinks="true"
+    autoHide="true"
+    previousLabel="Previous"
+    nextLabel="Next"
+    screenReaderPaginationLabel="Pagination"
+    class="mx-auto text-center my-pagination" 
+    (pageChange)="p = $event"
+    screenReaderPageLabel="page">
+  </pagination-controls>
+<!-- </div> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you Sure you want to delete?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-dark" data-dismiss="modal" (click)="delete()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

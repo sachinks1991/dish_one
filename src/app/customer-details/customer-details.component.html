@@ -1,0 +1,98 @@
+<div *ngIf="isLoadComplete" class="navStyle align-middle ">
+    <span class="float-right"> 
+      <form class="form-inline">
+        <input class="form-control" type="search" (keyup)="onInput($event.target.value)" placeholder="Search Customer" aria-label="Search">
+      </form>
+    </span>
+
+    <span class="mx-auto text-center"><h3> Customer Details </h3></span>
+</div>
+<mat-progress-bar class="progressStyle" *ngIf="!isLoadComplete" mode="indeterminate"> </mat-progress-bar>
+
+<div class="container-fluid table-responsive">
+
+  <table *ngIf="isLoadComplete" class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Serial Number</th>
+        <th scope="col">STB Number</th>
+        <th scope="col">VC Number</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">Email</th>       
+        <th scope="col">Area</th>
+        <th scope="col">Address</th>
+        <th scope="col">PinCode</th>
+        <th scope="col">Monthly Bill Amount</th>
+        <th scope="col">Monthly Bill Date</th>
+        <th scope="col">Activated</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+        <th scope="col">Make Payment</th>
+        <th scope="col">Payment Details</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let customer of customerDetails| paginate: {itemsPerPage: itemsPerPage, currentPage: p }; let i = index ">
+      <tr>
+        <!-- <th scope="row">{{ (config.currentPage - 1) * config.itemsPerPage + i + 1 }}</th> -->
+        <th scope="row">{{ (p - 1) * itemsPerPage + i + 1  }}</th>
+        <td>{{customer.stbNumber}}</td>
+        <td>{{customer.vcNumber}}</td>
+        <td>{{customer.firstName}}</td>
+        <td>{{customer.lastName}}</td>
+        <td>{{customer.phoneNumber}}</td>
+        <td>{{customer.email}}</td>
+        <td>{{customer.areaName}}</td>
+        <td>{{customer.address}}</td>
+        <td>{{customer.pincode}}</td>
+        <td>{{customer.monthlyBillAmount}}</td>
+        <td>{{customer.monthlyBillDate}}</td>
+        <td *ngIf="customer.isActivated == 1">Activated</td><td *ngIf="customer.isActivated == 0">De Activated</td>
+        <td><button type="button" class="btn btn-outline-light" (click)="navigateToEdit(customer)">Edit</button></td>
+        <td><button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#exampleModal" (click)="readyForDelete(customer.id)">Delete</button></td>
+        <td><button type="button" class="btn btn-outline-light" routerLink="/payment/{{customer.id}}">Make Payment</button></td>
+        <td><button type="button" class="btn btn-outline-light" routerLink="/paymentdetails/{{customer.id}}">Payment Details</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls> -->
+  
+  <!-- <div class="p-3 mb-2 bg-dark text-light mx-auto" style="display: table;"> -->
+    <pagination-controls
+      *ngIf="isLoadComplete"
+      maxSize="11"
+      directionLinks="true"
+      autoHide="true"
+      previousLabel="Previous"
+      nextLabel="Next"
+      screenReaderPaginationLabel="Pagination"
+      class="mx-auto text-center my-pagination" 
+      (pageChange)="p = $event"
+      screenReaderPageLabel="page">
+    </pagination-controls>
+  <!-- </div> -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you Sure you want to delete?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-dark" data-dismiss="modal" (click)="delete()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

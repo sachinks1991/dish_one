@@ -1,0 +1,216 @@
+<div class="navStyle align-middle">
+        <span class="mx-auto text-center"><h3> Customer Registration </h3></span>
+</div>      
+
+<div class="container">   
+    <form (ngSubmit)="onSubmit()" [formGroup]="customerAddForm">
+        <!-- activate -->
+        <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                  <input 
+                    class="form-check-input" 
+                    type="checkbox" 
+                    id="customerActivation" 
+                    [checked]="customerAddForm.controls.customerActivation.value"
+                    (change)="onActivateChange()"
+                    formControlName="customerActivation"> Customer <span *ngIf="customerAddForm.controls.customerActivation.value == 1"> Activated </span> <span *ngIf="customerAddForm.controls.customerActivation.value == 0"> Deactivated </span>
+                </label>
+        </div>
+
+        <!-- stb number -->
+        <div class="form-group">
+            <label for="stbNumber">STB Number</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="stbNumber"
+                formControlName="stbNumber">
+        </div>
+        <div *ngIf="customerAddForm.controls.stbNumber.invalid && (customerAddForm.controls.stbNumber.dirty || customerAddForm.controls.stbNumber.touched || customerAddForm.controls.stbNumber.untouched)"
+                    class="errorStyle">
+            <div *ngIf="customerAddForm.controls.stbNumber.errors.required">
+                STB Number is required
+            </div>
+        </div>
+
+        <!-- vc number -->
+        <div class="form-group">
+                <label for="vcNumber">VC Number</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="vcNumber"
+                    formControlName="vcNumber">
+        </div>
+        <div *ngIf="customerAddForm.controls.vcNumber.invalid && (customerAddForm.controls.vcNumber.dirty || customerAddForm.controls.vcNumber.touched || customerAddForm.controls.vcNumber.untouched)"
+                class="errorStyle">
+            <div *ngIf="customerAddForm.controls.vcNumber.errors.required">
+                VC Number is required
+            </div>
+        </div>
+
+        <!-- first name -->
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="firstName"
+            formControlName="firstName"
+            required>
+        </div>
+        <div *ngIf="customerAddForm.controls.firstName.invalid && (customerAddForm.controls.firstName.dirty || customerAddForm.controls.firstName.touched || customerAddForm.controls.firstName.untouched)"
+                class="errorStyle">
+            <div *ngIf="customerAddForm.controls.firstName.errors.required">
+                First Name is required
+            </div>
+        </div>
+
+        <!-- last name -->
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="lastName"
+            formControlName="lastName">
+        </div>
+        <div *ngIf="customerAddForm.controls.lastName.invalid && (customerAddForm.controls.lastName.dirty || customerAddForm.controls.lastName.touched || customerAddForm.controls.lastName.untouched)"
+                class="errorStyle">
+            <div *ngIf="customerAddForm.controls.lastName.errors.required">
+                Last Name is required
+            </div>
+        </div>
+
+        <!-- phone number -->
+        <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input 
+                    type="tel" 
+                    class="form-control" 
+                    id="phoneNumber"
+                    formControlName="phoneNumber">
+        </div>
+
+        <div *ngIf="customerAddForm.controls.phoneNumber.invalid && (customerAddForm.controls.phoneNumber.dirty || customerAddForm.controls.phoneNumber.touched || customerAddForm.controls.phoneNumber.untouched)"
+                class="errorStyle">
+            <div *ngIf="customerAddForm.controls.phoneNumber.errors.required">
+                Phone Number is required
+            </div>
+
+            <div *ngIf="customerAddForm.controls.phoneNumber.dirty && (customerAddForm.controls.phoneNumber.errors.minLength || customerAddForm.controls.phoneNumber.errors.maxLength)">
+                Phone Number must be at least 10 numbers long
+            </div>
+
+            <div *ngIf="customerAddForm.controls.phoneNumber.errors.pattern">
+                Only numbers allowed
+            </div>
+        </div>
+
+         <!-- email -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            class="form-control" 
+            id="email"
+            formControlName="email">
+        </div>
+        <div *ngIf="customerAddForm.controls.email.invalid && (customerAddForm.controls.email.dirty || customerAddForm.controls.email.touched || customerAddForm.controls.email.untouched)"
+                class="errorStyle">
+            <div *ngIf="customerAddForm.controls.email.errors.email">
+                Please enter valid email id
+            </div>
+        </div>
+
+        <!-- address-->
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="address"
+            formControlName="address">
+        </div>
+
+        <!-- area -->
+        <div class="form-group">
+            <label for="area">Area</label>
+            <select class="custom-select" formControlName="areaId" id="area">
+                <option *ngFor="let item of areas" [value]="item.id" [selected]="">{{item.areaName}}</option>
+            </select>
+        </div>
+        <div *ngIf="customerAddForm.controls.areaId.invalid && (customerAddForm.controls.areaId.dirty || customerAddForm.controls.areaId.touched || customerAddForm.controls.areaId.untouched)"
+                class="errorStyle">
+            <div *ngIf="customerAddForm.controls.areaId.errors.required">
+                Please select Area
+            </div>
+        </div>
+        
+
+        <!-- pin code -->
+        <div class="form-group">
+            <label for="pinCode">Pin Code</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="pinCode"
+              formControlName="pinCode">
+        </div>
+        <div *ngIf="customerAddForm.controls.pinCode.invalid && (customerAddForm.controls.pinCode.dirty || customerAddForm.controls.pinCode.touched || customerAddForm.controls.pinCode.untouched)"
+                class="errorStyle">
+            <div *ngIf="customerAddForm.controls.pinCode.errors.required">
+                Pincode required
+            </div>
+
+            <div *ngIf="customerAddForm.controls.pinCode.dirty && (customerAddForm.controls.pinCode.errors.minLength || customerAddForm.controls.pinCode.errors.maxLength)">
+                Please enter valid Pin Code
+            </div>
+
+            <div *ngIf="customerAddForm.controls.pinCode.errors.pattern">
+                Only numbers allowed
+            </div>
+        </div>
+
+        <!-- monthly bill amount-->
+        <div class="form-group">
+                <label for="monthlyBillAmount">Monthly Bill Amount</label>
+                <input 
+                    type="number" 
+                    class="form-control" 
+                    id="monthlyBillAmount"
+                    formControlName="monthlyBillAmount">
+        </div>
+        <div *ngIf="customerAddForm.controls.monthlyBillAmount.invalid && (customerAddForm.controls.monthlyBillAmount.dirty || customerAddForm.controls.monthlyBillAmount.touched || customerAddForm.controls.monthlyBillAmount.untouched)"
+                class="errorStyle">
+            <div *ngIf="customerAddForm.controls.monthlyBillAmount.errors.required">
+                Monthly Bill Amount Required
+            </div>
+
+            <div *ngIf="customerAddForm.controls.monthlyBillAmount.dirty && (customerAddForm.controls.monthlyBillAmount.errors.max || customerAddForm.controls.monthlyBillAmount.errors.amount)">
+                Please enter valid Amount
+            </div>
+        </div>
+
+        <!-- monthly bill date-->
+        <div class="form-group">
+            <label for="monthlyBillDate">Monthly Bill Date</label>
+            <select class="custom-select" formControlName="monthlyBillDate" id="monthlyBillDate">
+                <option *ngFor="let item of billDates" [value]="item" [selected]="">{{item}}</option>
+            </select>
+         </div>
+         <div *ngIf="customerAddForm.controls.monthlyBillDate.invalid && (customerAddForm.controls.monthlyBillDate.dirty || customerAddForm.controls.monthlyBillDate.touched || customerAddForm.controls.monthlyBillDate.untouched)"
+                class="errorStyle">
+            <div *ngIf="customerAddForm.controls.monthlyBillDate.errors.required">
+                Select Bill Date  
+            </div>
+
+            <div *ngIf="customerAddForm.controls.monthlyBillDate.dirty && (customerAddForm.controls.monthlyBillDate.errors.max || customerAddForm.controls.monthlyBillDate.errors.amount)">
+                Please select valid date
+            </div>
+        </div>
+
+    
+        <button type="submit" class="btn btn-dark btn-block" [disabled]="!customerAddForm.valid"> {{submitText}} </button>
+    </form>      
+</div>
